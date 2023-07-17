@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:planb3/page/home.dart';
-import 'package:planb3/button/switch_on_off.dart';
 import 'package:planb3/page/setalarm.dart';
+import 'package:planb3/page/custominput.dart';
 import 'package:planb3/theme/maincolor.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({super.key});
+class CustomText extends StatelessWidget {
+  const CustomText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const AlarmList();
+    return const TextList();
   }
 }
 
-class AlarmList extends StatefulWidget {
-  const AlarmList({super.key});
+class TextList extends StatefulWidget {
+  const TextList({super.key});
 
   @override
-  State<AlarmList> createState() => _AlarmListState();
+  State<TextList> createState() => _TextListState();
 }
 
-class _AlarmListState extends State<AlarmList> {
-  List<SizedBox> alarmCard = [
+class _TextListState extends State<TextList> {
+  String _enteredText = '';
+  List<SizedBox> textCard = [
     SizedBox(
       height: 130,
       child: Card(
@@ -35,35 +36,12 @@ class _AlarmListState extends State<AlarmList> {
               children: [
                 Row(
                   children: [
-                    // ignore: prefer_const_constructors
-                    Icon(
-                      Icons.access_alarm,
-                      size: 18,
-                      color: mainColor,
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    const Text(
-                      '5:00 PM',
-                      style: TextStyle(color: mainColor),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 14,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text("\u{1f601}  긍정", style: TextStyle(fontSize: 25)),
-                    OnOffSwitch(
-                      value: true,
-                      onChanged: (bool value) {},
-                      activeColor: mainColor,
-                      activeTextColor: Colors.white,
-                      activeText: 'ON',
-                      inactiveText: 'OFF',
+                    SizedBox(
+                      width: 300,
+                      child: AutoSizeText(
+                          'At et aliquet porttitor velit habitasse sed ac convallis viverra. Consequat sed morbi etiam.',
+                          style: TextStyle(fontFamily: 'Inter', fontSize: 10),
+                          maxLines: 3),
                     ),
                   ],
                 ),
@@ -83,7 +61,7 @@ class _AlarmListState extends State<AlarmList> {
         onPressed: () {
           setState(() {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const SetAlarmPage()),
+              MaterialPageRoute(builder: (context) => const CustomInput()),
             );
           });
         },
@@ -100,12 +78,12 @@ class _AlarmListState extends State<AlarmList> {
           iconSize: 30,
           onPressed: (() => {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  MaterialPageRoute(builder: (context) => const SetAlarmPage()),
                 ),
               }),
         ),
         title: const Text(
-          "설정",
+          "나만의 문구 만들기",
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -114,7 +92,7 @@ class _AlarmListState extends State<AlarmList> {
         centerTitle: true,
       ),
       body: Column(
-        children: alarmCard,
+        children: textCard,
       ),
     );
   }
